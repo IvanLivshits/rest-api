@@ -1,0 +1,23 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "cross-env NODE_ENV=development nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js"
+  },
+  "type": "module",
+  "keywords": ["js", "rest api", "swagger"],
+  "author": "Ivan Livshits",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "express": "^4.18.2",
+    "lowdb": "^3.0.0",
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.0"
+  }
+}
