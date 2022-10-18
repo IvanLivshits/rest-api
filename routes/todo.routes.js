@@ -5,6 +5,13 @@ const router = Router();
 
 //All tasks
 router.get('/', async(req, res, next) => {
+    /* 
+    #swagger.description = 'Get all todos'
+    #swagger.responses[200] = {
+        description: 'Array of all todos',
+        schema: { $ref: '#/definitions/Todos' }
+    } 
+    */
     try {
         await db.read();
 
@@ -23,6 +30,18 @@ router.get('/', async(req, res, next) => {
 
 //Get 1 task by id
 router.get('/:id', async(req, res, next) => {
+    /* 
+    #swagger.description = 'Get todo by ID'
+    #swagger.parameters['id'] = {
+        description: 'Existing todo ID',
+        type: 'string',
+        required: true
+    } 
+    #swagger.responses[200] = {
+        description: 'Todo with provided ID',
+        schema: { $ref: '#/definitions/Todo' }
+    }
+    */
     const id = req.params.id;
 
     try {
@@ -34,8 +53,7 @@ router.get('/:id', async(req, res, next) => {
             });
         }
 
-        const z = db.data.find((t) => t.id === 2);
-        const todo = db.data.find((t) => t.id === +id);
+        const todo = db.data.find((t) => t.id == id);
 
         if ( !todo ) {
             return res.status(400).json({ 
@@ -52,6 +70,20 @@ router.get('/:id', async(req, res, next) => {
 
 //Add new task
 router.post('/', async(req, res, next) => {
+    /*
+    #swagger.description = 'Create new todo'
+    #swagger.parameters['text'] = {
+        in: 'body',
+        description: 'New todo text',
+        type: 'object',
+        required: true,
+        schema: { $ref: '#/definitions/Text' }
+    }
+    #swagger.responses[201] = {
+        description: 'Array of new todos',
+        schema: { $ref: '#/definitions/Todos' }
+    } 
+    */
     const text = req.body.text;
 
     if ( !text ) {
@@ -81,6 +113,25 @@ router.post('/', async(req, res, next) => {
 
 //Update task by its identifier
 router.put('/:id', async(req, res, next) => {
+    /*
+    #swagger.description = 'Update existing todo'
+    #swagger.parameters['id'] = {
+        description: 'Existing todo ID',
+        type: 'string',
+        required: true
+    }
+    #swagger.parameters['changes'] = {
+        in: 'body',
+        description: 'Existing todo changes',
+        type: 'object',
+        required: true,
+        schema: { $ref: '#/definitions/Changes' }
+    }
+    #swagger.responses[201] = {
+        description: 'Array of new todos',
+        schema: { $ref: '#/definitions/Todos' }
+    } 
+    */
     const id = req.params.id;
 
     if ( !id ) {
@@ -100,7 +151,7 @@ router.put('/:id', async(req, res, next) => {
     try {
         await db.read();
 
-        const todo = db.data.find((t) => t.id === +id);
+        const todo = db.data.find((t) => t.id == id);
 
         if ( !todo ) {
             return res.status(400).json({
@@ -109,7 +160,7 @@ router.put('/:id', async(req, res, next) => {
         }
 
         const updatedTodo = { ...todo, ...changes };
-        const newTodos = db.data.map((t) => (t.id === +id ? updatedTodo : t));
+        const newTodos = db.data.map((t) => (t.id == id ? updatedTodo : t));
 
         db.data = newTodos;
         await db.write();
@@ -121,6 +172,19 @@ router.put('/:id', async(req, res, next) => {
 
 //Deleted task by its identifier
 router.delete('/:id', async(req, res, next) => {
+    /*
+    #swagger.description = 'Remove existing todo'
+    #swagger.parameters['id'] = {
+        description: 'Existing todo ID',
+        type: 'string',
+        required: true
+    }
+    #swagger.responses[201] = {
+        description: 'Array of new todos or empty array',
+        schema: { $ref: '#/definitions/Todos' }
+    }
+    */
+
     const id = req.params.id;
 
     if ( !id ) {
@@ -132,7 +196,7 @@ router.delete('/:id', async(req, res, next) => {
     try {
         await db.read();
 
-        const todo = db.data.find((t) => t.id === +id);
+        const todo = db.data.find((t) => t.id == id);
 
         if ( !todo ) {
             return res.status(400).json({
@@ -140,7 +204,7 @@ router.delete('/:id', async(req, res, next) => {
             });
         }
 
-        const newTodos = db.data.filter((t) => t.id !== +id);
+        const newTodos = db.data.filter((t) => t.id != id);
         db.data = newTodos;
         await db.write();
     } catch (e) {
