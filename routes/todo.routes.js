@@ -4,12 +4,11 @@ import db from '../db/index.js';
 const router = Router();
 
 //All tasks
-router.get('/', async(res, next) => {
+router.get('/', async(req, res, next) => {
     try {
         await db.read();
 
         if ( db.data.length ) {
-            console.log('2')
             res.status(200).json(db.data);
         } else {
             res.status(200).json({
@@ -17,7 +16,7 @@ router.get('/', async(res, next) => {
             });
         }
     } catch (e) {
-        console.log('Get all todos');
+        console.log('Get all todos')
         next(e);
     }
 });
@@ -35,7 +34,8 @@ router.get('/:id', async(req, res, next) => {
             });
         }
 
-        const todo = db.data.find((t) => t.id === id);
+        const z = db.data.find((t) => t.id === 2);
+        const todo = db.data.find((t) => t.id === +id);
 
         if ( !todo ) {
             return res.status(400).json({ 
@@ -100,7 +100,7 @@ router.put('/:id', async(req, res, next) => {
     try {
         await db.read();
 
-        const todo = db.data.find((t) => t.id === id);
+        const todo = db.data.find((t) => t.id === +id);
 
         if ( !todo ) {
             return res.status(400).json({
@@ -109,7 +109,7 @@ router.put('/:id', async(req, res, next) => {
         }
 
         const updatedTodo = { ...todo, ...changes };
-        const newTodos = db.data.map((t) => (t.id === id ? updatedTodo : t));
+        const newTodos = db.data.map((t) => (t.id === +id ? updatedTodo : t));
 
         db.data = newTodos;
         await db.write();
@@ -132,7 +132,7 @@ router.delete('/:id', async(req, res, next) => {
     try {
         await db.read();
 
-        const todo = db.data.find((t) => t.id === id);
+        const todo = db.data.find((t) => t.id === +id);
 
         if ( !todo ) {
             return res.status(400).json({
@@ -140,7 +140,7 @@ router.delete('/:id', async(req, res, next) => {
             });
         }
 
-        const newTodos = db.data.filter((t) => t.id !== id);
+        const newTodos = db.data.filter((t) => t.id !== +id);
         db.data = newTodos;
         await db.write();
     } catch (e) {
