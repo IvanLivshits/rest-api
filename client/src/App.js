@@ -6,7 +6,7 @@ import FileUpload from './components/FileUpload/FileUpload';
 function App() {
   const [sign, setSign] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:1703/testAPI")
+    fetch("http://localhost:1703/api/files_info")
       .then(res => res.json())
       .then(data => setSign(data));
   }, []);

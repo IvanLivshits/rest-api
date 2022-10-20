@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({dest: 'uploads'}).single('filedata'));
 app.use(express.static(__dirname));
 
-app.use('/testAPI', testAPIRouter);
+app.use('/api', testAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

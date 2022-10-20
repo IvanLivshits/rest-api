@@ -13,7 +13,7 @@ class testAPIController {
     }
 
     async uploadFile(req, res) {
-        const file = req.file.filedata;
+        const file = req.file;
         console.log('here')
         console.log(file);
     }

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styles from './FileUpload.module.css'
 
-const hostUrl = 'http://localhost:1703/testAPI';
+const hostUrl = 'http://localhost:1703/api/files_upload';
 
 const FileUpload = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -19,8 +19,6 @@ const FileUpload = () => {
 
         const formData = new FormData();
         formData.append('filedata', selectedFile);
-        console.log(formData);
-        console.log(selectedFile);
 
         fetch(hostUrl, {
             method: 'POST',
