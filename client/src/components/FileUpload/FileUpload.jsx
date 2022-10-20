@@ -11,7 +11,7 @@ const FileUpload = () => {
         setSelectedFile(event.target.files[0]);
     }
 
-    const handleUpload = () => {
+    const handleUpload = async () => {
         if ( !selectedFile ) {
             alert('Please select a file!');
             return;
@@ -19,8 +19,10 @@ const FileUpload = () => {
 
         const formData = new FormData();
         formData.append('filedata', selectedFile);
+        console.log(selectedFile);
+        console.log(formData);
 
-        fetch(hostUrl, {
+        await fetch(hostUrl, {
             method: 'POST',
             body: formData
         })

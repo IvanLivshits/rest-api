@@ -13,8 +13,20 @@ class testAPIController {
     }
 
     async uploadFile(req, res) {
-        const file = req.file;
+        const file = req;
         console.log(file);
+        // const fileName = file.originalname.split('.')[0];
+        // const fileType = file.originalname.split('.')[1];
+        // const fileMimeType = file.mimetype;
+        // const size = file.size;
+        // const uploadingDate = new Date();
+        return res.status(200);
+    }
+
+    async getFile(req, res) {
+        res.download("./uploads/7810be5a99ebe37b5d71d0aa54b891b2");
+        console.log('here');
+        return res.status(200);
     }
 }
 

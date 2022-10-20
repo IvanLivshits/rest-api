@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DownloadButton from '../DownloadButton/DownloadButton';
 import FileCard from '../FileCard/FileCard';
 
 const FileList = () => {
@@ -12,6 +13,7 @@ const FileList = () => {
 
    return (
        <div>
+            <DownloadButton />
             {sign ? sign.map((el) => 
                 <FileCard key={el.id} props={el}/>
             ) : "Is Loading..."}
