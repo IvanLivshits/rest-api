@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/IvanLivshits/rest-api#readme",
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "mysql2": "^2.3.3",
+    "mysql2-promise": "^0.1.4"
   },
-  "devDependencies": {},
   "description": ""
 }

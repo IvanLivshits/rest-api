@@ -1,0 +1,7 @@
+.FileCard {
+    position: relative;
+    border: 4px double black;
+    margin: 1%;
+    max-width: 300px;
+    background-color: yellow;
+}
