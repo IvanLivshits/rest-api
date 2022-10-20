@@ -13,7 +13,7 @@ const FileList = () => {
    return (
        <div>
             {sign ? sign.map((el) => 
-                <FileCard props={el}/>
+                <FileCard key={el.id} props={el}/>
             ) : "Is Loading..."}
        </div>
    );
