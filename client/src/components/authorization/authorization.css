@@ -1,4 +1,4 @@
-.registration {
+.authorization {
     display: flex;
     flex-direction: column;
     width: 500px;
@@ -10,16 +10,16 @@
     margin-top: 100px;
   }
 
-.registration__header {
+.authorization__header {
 font-size: 30px;
 font-weight: 700;
 }
 
-.registration input {
+.authorization input {
 margin: 10px 20px;
 }
 
-.registration__btn {
+.authorization__btn {
 border: none;
 background-color: #566885;
 border-radius: 8px;

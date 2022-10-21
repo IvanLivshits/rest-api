@@ -10,9 +10,22 @@ const Registration = () => {
     return (
         <div className='registration'>
             <div className="registration__header">Registration</div>
-            <Input value={login} setValue={setLogin} type="text" placeholder="Type login..."/>
-            <Input value={password} setValue={setPassword} type="password" placeholder="Type password..."/>
-            <button className="registration__btn" onClick={() => registration(login, password)}>Sign Up</button>
+            <Input 
+                value={login} 
+                setValue={setLogin} 
+                type="text" 
+                placeholder="Type login..."
+            />
+            <Input 
+                value={password} 
+                setValue={setPassword} 
+                type="password" 
+                placeholder="Type password..."
+            />
+            <button 
+                className="registration__btn" 
+                onClick={() => registration(login, password)}
+            >Sign Up</button>
         </div>
     );
 };

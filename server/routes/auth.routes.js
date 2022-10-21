@@ -4,6 +4,7 @@ const { check, validationResult, oneOf } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcryptjs');
+const authMiddleware = require('../middleware/auth.middleware');
 
 const router = new Router();
 
@@ -70,6 +71,30 @@ router.post('/signin', async (req, res) => {
             login: login
         }
     })
-})
+});
+
+router.get('/auth', authMiddleware,
+    async (req, res) => {
+        try {
+            const user_id = req.user.id;
+
+            const user = await db.query(`select * from users where id = ${user_id};`).then(result => {
+                return result[0][0] || null;
+            });
+
+            const token = jwt.sign({id: user.id}, config.get('secretKey'), {expiresIn: "10min"});
+
+            return res.json({
+                token,
+                user: {
+                    id: user.id,
+                    login: user.login
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            res.send({message: "Server error"})
+        }
+    });
 
 module.exports = router;
