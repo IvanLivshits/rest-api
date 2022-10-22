@@ -6,6 +6,7 @@ import Registration from "./registration/Registration";
 import Authorization from './authorization/Authorization';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../actions/user';
+import Disk from './disk/Disk';
 
 function App() {
   const isAuth = useSelector(state => state.user.isAuth);
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/login" element={<Authorization />}/>
                   </Routes>
                 }
+                {isAuth && <Disk />}
               </div>
           </div>
       </Router>
