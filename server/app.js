@@ -1,17 +1,21 @@
 const express = require('express');
 const config = require('config');
 const authRouter = require('./routes/auth.routes');
+const fileRouter = require('./routes/file.routes');
 const bodyParser = require('body-parser');
-const corsMiddleware = require('./middleware/cors.middleware');
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
 
 const app = express();
 const PORT = config.get('serverPort');
 
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(corsMiddleware);
+app.use(cors());
 app.use('/', authRouter);
+app.use('/file', fileRouter);
 
 const start = () => {
     try {
