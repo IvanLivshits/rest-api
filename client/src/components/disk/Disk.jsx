@@ -1,15 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { upload } from '../../actions/file';
+import { upload, download } from '../../actions/file';
 
 const Disk = () => {
-    const dispatch = useDispatch();
-
     const uploadContent = (event) => {
-        const file = event.target.file;
-        console.log(file);
-        dispatch(upload(file));
+        const file = event.target.files[0];
+        upload(file);
     };
+
+    const downloadFile = (e) => {
+        e.preventDefault();
+        download();
+    }
 
     return (
         <div>
@@ -18,6 +19,7 @@ const Disk = () => {
                 type="file"
                 onChange={(event) => uploadContent(event)}
             />
+            <button onClick={(e) => downloadFile(e)}>Download file!</button>
         </div>
     );
 };
