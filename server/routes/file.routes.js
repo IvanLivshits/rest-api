@@ -1,8 +1,19 @@
 const Router = require('express');
 const db = require('../../db/db');
-const authMiddleware = require('../middleware/auth.middleware');
 
 const router = new Router();
+
+router.get('/list', async (req, res) => {
+    let userId = req.query.userId;
+
+    const fileList = await db.query(`
+            select * from files where owner_id = ${userId};
+        `).then(result => {
+            return result[0] || null;
+    });
+
+    return res.status(200).json({fileList});
+})
 
 router.post('/upload', async(req, res) => {
 
@@ -12,6 +23,7 @@ router.post('/upload', async(req, res) => {
 
     const sampleFile = req.files.file;
 
+    const userId = req.body.userId;
     const fileName = sampleFile.name;
     const fileExtension =  sampleFile.mimetype.split('/')[1];
     const fileMimetype = sampleFile.mimetype.split('/')[0];
@@ -26,7 +38,7 @@ router.post('/upload', async(req, res) => {
     });
     
     if ( !file_id ) {
-        await db.query(`insert into files(owner_id, name, extension, mimetype, size, upload_date, file_link) values(1, '${fileName}', '${fileExtension}', '${fileMimetype}', ${fileSize}, NOW(), '${filePath}');`);
+        await db.query(`insert into files(owner_id, name, extension, mimetype, size, upload_date, file_link) values(${userId}, '${fileName}', '${fileExtension}', '${fileMimetype}', ${fileSize}, NOW(), '${filePath}');`);
     }
     
     sampleFile.mv(filePath, (e) => {
@@ -42,7 +54,6 @@ router.get('/download', async (req, res) => {
         const fileName = 'Component 1.svg';
         const path = __dirname + '/files/' + fileName;
         res.download(path);
-        
     } catch (error) {
         console.log(error);
         res.status(500).json({message: "Download error"})
