@@ -3,12 +3,14 @@ input {
     border-bottom: #566885 solid 3px;
     background: transparent;
     width: 100%;
-    padding: 3px;
+    padding: 7px;
+    font-size: medium;
 }
 
 input:focus {
   outline: none;
-  transform: scale(1.01);
+  transform: scale(1.05);
+  box-shadow: 4px 4px 10px blue;
 }
 
 ::-webkit-input-placeholder {

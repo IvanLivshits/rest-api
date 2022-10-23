@@ -1,25 +1,15 @@
 import React from 'react';
-import { upload, download } from '../../actions/file';
+import FileInput from './fileInput/FileInput';
+import './disk.css';
+import File from './file/File';
 
 const Disk = () => {
-    const uploadContent = (event) => {
-        const file = event.target.files[0];
-        upload(file);
-    };
-
-    const downloadFile = (e) => {
-        e.preventDefault();
-        download();
-    }
 
     return (
         <div>
-            <h1>Test zone</h1>
-            <input
-                type="file"
-                onChange={(event) => uploadContent(event)}
-            />
-            <button onClick={(e) => downloadFile(e)}>Download file!</button>
+            <FileInput />
+            <div className="header">There are your file storage</div>
+            <File />
         </div>
     );
 };

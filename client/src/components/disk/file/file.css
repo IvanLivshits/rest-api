@@ -1,0 +1,43 @@
+.file {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 4px 4px 10px black;
+}
+
+.file__logo {
+    width: 40px;
+    height: auto;
+    margin: 15px 15px 15px 15px;
+}
+
+.file__header {
+    display: flex;
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.file__name {
+    align-items: center;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.file__download {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.file__delete {
+    margin-right: 10px;
+}
+
+.container {
+    width: 1140px;
+    display: flex;
+    align-items: center;
+}

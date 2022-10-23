@@ -1,8 +1,7 @@
 import axios from 'axios';
 const FileDownload = require('js-file-download');
 
-
-export const upload = async (file) => {
+export const upload = async (file, id) => {
     try {
         const formData = new FormData();
         formData.append('file', file);

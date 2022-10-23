@@ -27,8 +27,8 @@ function App() {
                     <Route path="/login" element={<Authorization />}/>
                   </Routes>
                 }
-                {isAuth && <Disk />}
               </div>
+              {isAuth && <Disk />}
           </div>
       </Router>
   );
