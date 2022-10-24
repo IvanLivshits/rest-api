@@ -10,7 +10,7 @@ import { getFileInfo } from '../../../actions/file';
 const File = (props) => {
     const [modalActive, setModalActive] = useState(false);
     const fileInfo = props.fileInfo;
-    console.log(props.fileInfo);
+    
     return (
         <div className='file' >
             <div className="container">

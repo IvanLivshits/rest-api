@@ -8,3 +8,33 @@
     width: 100%;
     justify-content: center;
 }
+
+.pagination {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination__symbol {
+    height: 28px;
+}
+
+.pagination__divider {
+    height: 40px;
+}
+
+.pagination__input {
+    border: 1px solid black;
+    font-size: 25px;
+    text-align: center;
+    display: flex;
+    width: 100px;
+}
+
+.pagination__input:focus {
+    outline: none;
+    transform: scale(1);
+    box-shadow: 0px 0px 0px;
+}
+  
