@@ -74,13 +74,14 @@ export const download = async (id, name) => {
 
 export const fileDelete = async (id) => {
     try {
-        axios({
+        const res = await axios({
             url: `http://localhost:1703/file/delete?fileId=${id}`,
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
+        return res;
     } catch (error) {
         console.log(error);
     }

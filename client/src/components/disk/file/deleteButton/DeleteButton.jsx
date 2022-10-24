@@ -1,12 +1,20 @@
 import React from 'react';
-import { fileDelete } from '../../../../actions/file';
+import { useSelector } from 'react-redux';
+import { fileDelete, getFiles } from '../../../../actions/file';
 import './deleteButton.css';
 
 const DeleteButton = (props) => {
+    const userId = useSelector(state => state.user.currentUser.id);
 
     const deleteFile = (e) => {
         e.preventDefault();
-        fileDelete(props.id);
+        fileDelete(props.id)
+            .then(() => {
+                getFiles(userId)
+                    .then(res => {
+                        props.setFiles(res.data.fileList)
+                    })
+            });
     }
 
     return (
