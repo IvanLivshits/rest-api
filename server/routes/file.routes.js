@@ -51,6 +51,7 @@ router.put('/update', async(req, res) => {
             return res.status(500);
         }
     });
+    return res.status(200).send('File uploaded!')
 })
 
 router.post('/upload', async(req, res) => {
@@ -83,6 +84,7 @@ router.post('/upload', async(req, res) => {
             return res.status(500);
         }
     });
+    return res.status(200).send('File uploaded!');
 });
 
 router.get('/download', async (req, res) => {

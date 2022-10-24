@@ -21,7 +21,7 @@ export const update = async (file, id) => {
         formData.append('file', file);
         formData.append('fileId', id);
         
-        await axios.put('http://localhost:1703/file/update',
+        const res = await axios.put('http://localhost:1703/file/update',
                 formData,
                 {
                     headers: {
@@ -29,6 +29,7 @@ export const update = async (file, id) => {
                     }
                 }
             );
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -40,7 +41,7 @@ export const upload = async (file, userId) => {
         formData.append('file', file);
         formData.append('userId', userId);
         
-        await axios.post('http://localhost:1703/file/upload',
+        const res = await axios.post('http://localhost:1703/file/upload',
                 formData,
                 {
                     headers: {
@@ -48,6 +49,7 @@ export const upload = async (file, userId) => {
                     }
                 }
             );
+        return res;
     } catch (error) {
         console.log(error);
     }

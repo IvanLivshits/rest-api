@@ -35,7 +35,7 @@ const File = (props) => {
                         onClick={() => setModalPutActive(true)}>Update</button>
                 </div>
                 <div className="file__delete">
-                    <DeleteButton id={props.id} />
+                    <DeleteButton setFiles={props.setFiles} id={props.id} />
                 </div>
                 <Modal active={modalActive} setActive={setModalActive}>
                     <h2>Name: {fileInfo.name}</h2>
@@ -48,7 +48,7 @@ const File = (props) => {
                     <p>P.S. You can find out your identification number by clicking on the "Get ID" button in the upper right corner of the screen.</p>
                 </Modal>
                 <Modal active={modalPutActive} setActive={setModalPutActive} >
-                    <FileUpdate id={props.id}/>
+                    <FileUpdate setFiles={props.setFiles} id={props.id}/>
                 </Modal>
             </div>
         </div>

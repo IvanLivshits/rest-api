@@ -7,8 +7,7 @@ import arrow_left from '../../../assets/img/arrow_left.png';
 import arrow_right from '../../../assets/img/arrow_right.png';
 import slash from '../../../assets/img/slash.png';
 
-const FileList = () => {
-    const [files, setFiles] = useState([]);
+const FileList = ({files, setFiles}) => {
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState(1);
     const [filesPerPage, setFilesPerPage] = useState(10);
@@ -37,7 +36,7 @@ const FileList = () => {
         setPages(Math.ceil(files.length/value));
     }
     
-    const fileStorage = files.length ? files.map(file => <File key={file.id} fileInfo={file} id={file.id} name={file.name} />) : null;
+    const fileStorage = files.length ? files.map(file => <File setFiles={setFiles} key={file.id} fileInfo={file} id={file.id} name={file.name} />) : null;
 
     return (
         <div>

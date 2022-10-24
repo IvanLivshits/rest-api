@@ -1,13 +1,20 @@
 import React from 'react';
-import { update } from '../../../actions/file';
+import { useSelector } from 'react-redux';
+import { getFiles, update } from '../../../actions/file';
 import './fileUpdate.css'
 
 const FileUpdate = (props) => {
+    const userId = useSelector(state => state.user.currentUser.id);
 
     const uploadContent = (event) => {
         const file = event.target.files[0];
-        console.log(props.id)
-        update(file, props.id);
+        update(file, props.id)
+            .then(() => {
+                getFiles(userId)
+                    .then(res => {
+                        props.setFiles(res.data.fileList)
+                    })
+            });
     };
 
     return (

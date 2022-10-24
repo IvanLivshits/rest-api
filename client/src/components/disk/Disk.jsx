@@ -4,11 +4,13 @@ import './disk.css';
 import FileList from './fileList/FileList';
 
 const Disk = () => {
+    const [files, setFiles] = useState([]);
+
     return (
         <div>
-            <FileInput />
+            <FileInput setFiles={setFiles}/>
             <div className="header">There is your file storage</div>
-            <FileList />
+            <FileList files={files} setFiles={setFiles}/>
         </div>
     );
 };
