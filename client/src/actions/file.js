@@ -11,7 +11,7 @@ export const getFiles = async (userId) => {
             })
             return request;
     } catch (error) {
-        alert(error);
+        console.log(error);
     }
 }
 
@@ -30,23 +30,52 @@ export const upload = async (file, userId) => {
                 }
             );
     } catch (error) {
-        alert(error);
+        console.log(error);
     }
 }
 
-export const download = async () => {
+export const download = async (id, name) => {
     try {
         axios({
-            url: 'http://localhost:1703/file/download',
+            url: `http://localhost:1703/file/download?fileId=${id}`,
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             responseType: "blob"
         }).then((res) => {
-            FileDownload(res.data, "Component 1.svg");
+            FileDownload(res.data, `${name}`);
         });
     } catch (error) {
-        alert(error)
+        console.log(error);
+    }
+}
+
+export const fileDelete = async (id) => {
+    try {
+        axios({
+            url: `http://localhost:1703/file/delete?fileId=${id}`,
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getFileInfo = async (id) => {
+    try {
+        const request = await axios({
+            url: `http://localhost:1703/file?fileId=${id}`,
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return request;
+    } catch (error) {
+        console.log(error);
     }
 }

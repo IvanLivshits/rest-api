@@ -1,9 +1,9 @@
-.downloadButton {
+.deleteButton {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.download__btn {
+.delete__btn {
     width: 70px;
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getFiles } from '../../../actions/file';
 import File from '../file/File';
+import './fileList.css';
 
 const FileList = () => {
     const [files, setFiles] = useState([]);
@@ -13,10 +14,9 @@ const FileList = () => {
         });
     }, [userId]);
     
-    console.log(files);
     return (
-        <div>
-            {files?.length >= 1 ? files.map(file => <File key={file.id} name={file.name} />) : <h1>Loading...</h1>}
+        <div className='fileList'>
+            {files.length ? files.map(file => <File key={file.id} fileInfo={file} id={file.id} name={file.name} />) : <h1 className='loading__header'>Waiting for file delivery...</h1>}
         </div>
     );
 };

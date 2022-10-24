@@ -7,6 +7,7 @@ import { logout } from '../../reducers/userReducer';
 
 const Navbar = () => {
     const isAuth = useSelector(state => state.user.isAuth);
+    const userId = useSelector(state => state.user.currentUser.id);
     const dispatch = useDispatch();
 
     return (
@@ -27,6 +28,11 @@ const Navbar = () => {
                 {isAuth && 
                     <div className="navbar__login" onClick={() => dispatch(logout())}>
                         <NavLink>Log Out</NavLink>
+                    </div>
+                }
+                {isAuth && 
+                    <div className="navbar__registration" onClick={() => alert(`Your id is ${userId}`)}>
+                        <NavLink>Get ID</NavLink>
                     </div>
                 }
             </div>

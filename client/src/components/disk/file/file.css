@@ -29,12 +29,20 @@
 }
 
 .file__download {
-    margin-left: auto;
     margin-right: 10px;
 }
 
 .file__delete {
     margin-right: 10px;
+}
+
+.file__info {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.file__info__btn {
+    width: 70px;
 }
 
 .container {

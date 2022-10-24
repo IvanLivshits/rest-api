@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { upload } from '../../../actions/file';
 import './fileInput.css'
 
-const FileInput = () => {
+const FileInput = (props) => {
     const userId = useSelector(state => state.user.currentUser.id);
 
     const uploadContent = (event) => {

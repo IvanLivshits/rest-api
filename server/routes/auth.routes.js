@@ -95,6 +95,7 @@ router.get('/auth', authMiddleware,
             console.log(error);
             res.send({message: "Server error"})
         }
-    });
+    }
+);
 
 module.exports = router;

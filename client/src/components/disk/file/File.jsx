@@ -2,11 +2,15 @@ import React from 'react'
 import DownloadButton from './downloadButton/DownloadButton';
 import icon from '../../../assets/img/file.png';
 import './file.css';
+import DeleteButton from './deleteButton/DeleteButton';
+import { useState } from 'react';
+import Modal from '../../../utils/modal/Modal';
+import { getFileInfo } from '../../../actions/file';
 
 const File = (props) => {
-    console.log(`file props`)
-    console.log(props)
-    console.log(`------------------------------`)
+    const [modalActive, setModalActive] = useState(false);
+    const fileInfo = props.fileInfo;
+    console.log(props.fileInfo);
     return (
         <div className='file' >
             <div className="container">
@@ -16,9 +20,27 @@ const File = (props) => {
                         {props.name}
                     </div>
                 </div>
-                <div className="file__download">
-                    <DownloadButton />
+                <div className="file__info">
+                    <button 
+                        className='file__info__btn'
+                        onClick={() => setModalActive(true)}>Info</button>
                 </div>
+                <div className="file__download">
+                    <DownloadButton id={props.id} name={props.name}/>
+                </div>
+                <div className="file__delete">
+                    <DeleteButton id={props.id} />
+                </div>
+                <Modal active={modalActive} setActive={setModalActive}>
+                    <h2>Name: {fileInfo.name}</h2>
+                    <h2>Extension: {fileInfo.extension}</h2>
+                    <h2>Mimetype: {fileInfo.mimetype}</h2>
+                    <h2>Owner_id: {fileInfo.owner_id}</h2>
+                    <h2>File size: {fileInfo.size} bytes</h2>
+                    <h2>Upload data: {fileInfo.upload_date}</h2>
+                    <p>__________________________________________________________________________________________________</p>
+                    <p>P.S. You can find out your identification number by clicking on the "Get ID" button in the upper right corner of the screen.</p>
+                </Modal>
             </div>
         </div>
     );
