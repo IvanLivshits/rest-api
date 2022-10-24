@@ -1,0 +1,5 @@
+PORT=1703
+KEY="DzfJX4xn2NqaS9k5AsKYJ"
+DB_USER="root"
+PASSWORD="54785478Ii%"
+DATABASE="aero_rest_api"

@@ -2,9 +2,9 @@ const mysql = require('mysql2');
 
 const db = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "54785478Ii%",
-    database: "aero_rest_api",
+    user: process.env.DB_USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
     multipleStatements: true
 }).promise();
 

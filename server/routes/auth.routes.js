@@ -2,7 +2,6 @@ const Router = require('express');
 const db = require('../../db/db');
 const { check, validationResult, oneOf } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const bcrypt = require('bcryptjs');
 const authMiddleware = require('../middleware/auth.middleware');
 
@@ -63,7 +62,7 @@ router.post('/signin', async (req, res) => {
         return res.status(400).json({message: 'Invalid password'});
     };
 
-    const token = jwt.sign({id: user_id.id}, config.get('secretKey'), {expiresIn: "10min"});
+    const token = jwt.sign({id: user_id.id}, process.env.KEY, {expiresIn: "10min"});
     return res.json({
         token,
         user: {
@@ -82,7 +81,7 @@ router.get('/auth', authMiddleware,
                 return result[0][0] || null;
             });
 
-            const token = jwt.sign({id: user.id}, config.get('secretKey'), {expiresIn: "10min"});
+            const token = jwt.sign({id: user.id}, process.env.KEY, {expiresIn: "10min"});
 
             return res.json({
                 token,
