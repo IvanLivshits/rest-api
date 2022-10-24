@@ -14,6 +14,43 @@ router.get('/list', async (req, res) => {
     });
 
     return res.status(200).json({fileList});
+});
+
+router.put('/update', async(req, res) => {
+
+    if ( !req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded');
+    }
+
+    const sampleFile = req.files.file;
+
+    const fileId = req.body.fileId;
+    const fileName = sampleFile.name;
+    const fileExtension =  sampleFile.mimetype.split('/')[1];
+    const fileMimetype = sampleFile.mimetype.split('/')[0];
+    const fileSize = sampleFile.size;
+
+    const filePath = __dirname + '/files/' + fileName;
+
+    //Delete old file from local storage
+    const oldFilePath = await db.query(`select file_link from files where id = ${fileId};`)
+        .then(res => {
+            return res[0][0] || null;
+        });
+    
+    fs.unlink(oldFilePath.file_link, e => {
+        if(e) return res.status(400).send(e);
+    });
+    
+    //Update data in DB
+    await db.query(`update files set name = '${fileName}', extension = '${fileExtension}', mimetype = '${fileMimetype}', size = ${fileSize}, upload_date = NOW(), file_link = '${filePath}' where id = ${fileId};`);
+
+    //Send new file to local storage
+    sampleFile.mv(filePath, (e) => {
+        if ( e ) {
+            return res.status(500);
+        }
+    });
 })
 
 router.post('/upload', async(req, res) => {

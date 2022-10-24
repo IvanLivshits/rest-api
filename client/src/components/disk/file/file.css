@@ -32,6 +32,14 @@
     margin-right: 10px;
 }
 
+.file__update {
+    margin-right: 10px;
+}
+
+.file__update__btn {
+    width: 70px;
+}
+
 .file__delete {
     margin-right: 10px;
 }

@@ -15,6 +15,25 @@ export const getFiles = async (userId) => {
     }
 }
 
+export const update = async (file, id) => {
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('fileId', id);
+        
+        await axios.put('http://localhost:1703/file/update',
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
+            );
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const upload = async (file, userId) => {
     try {
         const formData = new FormData();

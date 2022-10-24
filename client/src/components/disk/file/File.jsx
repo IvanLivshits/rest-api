@@ -5,12 +5,13 @@ import './file.css';
 import DeleteButton from './deleteButton/DeleteButton';
 import { useState } from 'react';
 import Modal from '../../../utils/modal/Modal';
-import { getFileInfo } from '../../../actions/file';
+import FileUpdate from '../fileUpdate/FileUpdate';
 
 const File = (props) => {
     const [modalActive, setModalActive] = useState(false);
+    const [modalPutActive, setModalPutActive] = useState(false);
     const fileInfo = props.fileInfo;
-    
+
     return (
         <div className='file' >
             <div className="container">
@@ -28,6 +29,11 @@ const File = (props) => {
                 <div className="file__download">
                     <DownloadButton id={props.id} name={props.name}/>
                 </div>
+                <div className="file__update">
+                    <button 
+                        className='file__update__btn'
+                        onClick={() => setModalPutActive(true)}>Update</button>
+                </div>
                 <div className="file__delete">
                     <DeleteButton id={props.id} />
                 </div>
@@ -40,6 +46,9 @@ const File = (props) => {
                     <h2>Upload data: {fileInfo.upload_date}</h2>
                     <p>__________________________________________________________________________________________________</p>
                     <p>P.S. You can find out your identification number by clicking on the "Get ID" button in the upper right corner of the screen.</p>
+                </Modal>
+                <Modal active={modalPutActive} setActive={setModalPutActive} >
+                    <FileUpdate id={props.id}/>
                 </Modal>
             </div>
         </div>
