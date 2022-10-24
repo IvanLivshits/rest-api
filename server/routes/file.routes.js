@@ -82,7 +82,6 @@ router.post('/upload', async(req, res) => {
         if ( e ) {
             return res.status(500);
         }
-        res.status(200).send('File uploaded!');
     });
 });
 
