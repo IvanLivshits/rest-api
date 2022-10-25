@@ -39,7 +39,7 @@ router.put('/update', async(req, res) => {
         });
     
     fs.unlink(oldFilePath.file_link, e => {
-        if(e) return res.status(400).send(e);
+        if(e) return res.status(400);
     });
     
     //Update data in DB
@@ -96,7 +96,7 @@ router.get('/download', async (req, res) => {
             })
         
         if ( !fileName ) {
-            return res.status(400).send('File doesn`t have name');
+            return res.status(400);
         }; 
 
         const path = __dirname + '/files/' + fileName.name;
@@ -117,7 +117,7 @@ router.delete('/delete', async (req, res) => {
         
         await db.query(`delete from files where id = ${fileId};`);
         fs.unlink(filePath.file_link, e => {
-            if(e) return res.status(400).send(e);
+            if(e) return res.status(400);
         });
 
         return res.status(200).send('File deleted');
