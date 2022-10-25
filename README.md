@@ -38,7 +38,7 @@ create table files(
   ```
   * Get access rights: 
   ```sql
-  GRANT ALL ON db_name.* "user_name"@"localhost";
+  GRANT ALL PRIVILEGES ON db_name.* TO "user_name"@"localhost";
   ```
 
 ## Project settings:
