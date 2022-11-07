@@ -1,4 +1,4 @@
-const { DomainError } = require('../model');
+const {tryIt} = require('./utils');
 
 class RegistrationController {
     /**
@@ -7,26 +7,23 @@ class RegistrationController {
      */
     constructor({service}) {
         this.service = service;
+        this.signIn = tryIt(this.signIn.bind(this));
+        this.signUp = tryIt(this.signUp.bind(this));
     }
 
     async signIn(req, res) {
-        try {
-            const {token, user} = await this.service.signIn(req.body);
-            res.json({
-                token, user: {
-                    id: user.id,
-                    login: user.login
-                }
-            });
-        } catch (error) {
-            console.log(error);
-            if ( error instanceof DomainError ) {
-                res.status(500).json({error: error.code});
-            } else {
-                res.status(500).json({error: 'Unknown'});
+        const {token, user} = await this.service.signIn(req.body);
+        res.json({
+            token, user: {
+                id: user.id,
+                login: user.login
             }
-        }
+        });
     }
-}
+
+    async signUp(req, res) {
+        await this.service.signUp(req.body);
+    }
+} 
 
 module.exports = {RegistrationController};
