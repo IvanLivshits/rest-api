@@ -4,9 +4,17 @@ const { check, validationResult, oneOf } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const authMiddleware = require('../middleware/auth.middleware');
+const { UserRepository } = require('../repository/mysql');
+const { RegistrationService } = require('../service');
+const { RegistrationController } = require('../controller');
 
 const router = new Router();
+const users = new UserRepository(db);
+const secret = process.env.KEY;
+const service = new RegistrationService({users, secret});
+const controller = new RegistrationController({service});
 
+//to do: SQL Injection
 router.post(
     '/signup', 
     [
@@ -41,36 +49,7 @@ router.post(
     }
 });
 
-router.post('/signin', async (req, res) => {
-
-    const {login, password} = req.body;
-
-    const user_id = await db.query(`select id from users where login = '${login}';`).then(result => {
-        return result[0][0] || null;
-    });
-
-    if ( !user_id ) {
-        return res.status(400).json({message: 'User not found'});
-    }
-
-    const user_pass = await db.query(`select password from users where id = ${user_id.id};`).then(result => {
-        return result[0][0] || null;
-    });
-    const isPassValid = bcrypt.compareSync(password, user_pass.password);
-
-    if ( !isPassValid ) {
-        return res.status(400).json({message: 'Invalid password'});
-    };
-
-    const token = jwt.sign({id: user_id.id}, process.env.KEY, {expiresIn: "10min"});
-    return res.json({
-        token,
-        user: {
-            id: user_id.id,
-            login: login
-        }
-    })
-});
+router.post('/signin', controller.signIn.bind(controller));
 
 router.get('/auth', authMiddleware,
     async (req, res) => {
